@@ -38,3 +38,21 @@ document.querySelectorAll('.photo-card').forEach(card => {
 document.getElementById('lbClose').addEventListener('click', () => lb.classList.remove('open'));
 lb.addEventListener('click', e => { if(e.target === lb) lb.classList.remove('open'); });
 document.addEventListener('keydown', e => { if(e.key==='Escape') lb.classList.remove('open'); });
+
+const bgMusic = document.getElementById('bgMusic');
+const tryPlayMusic = () => {
+  if (bgMusic) {
+    const playPromise = bgMusic.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Autoplay was blocked by the browser; the audio element still exists for manual controls.
+      });
+    }
+  }
+};
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', tryPlayMusic);
+} else {
+  tryPlayMusic();
+}
